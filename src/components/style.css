@@ -1,0 +1,15 @@
+.container {
+    color: black;
+    padding: 20px;
+    width: 450px;
+    height: auto;
+    margin: 100px auto;
+    background: white;
+    box-shadow: 0px 0px 5px 5px #a9b3b8;
+    top: 20%;
+    /* overflow-y: auto; */
+    /* align-items: center; */
+    /* display: flex; */
+    flex-direction: column;
+    border-radius: 25px;
+  }

@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import {Register} from "./components/Register";
 
 ReactDOM.render(
-<h1>Hello, World!</h1>,
+< Register />,
   document.getElementById('root')
 );
