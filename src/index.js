@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter}  from 'react-router-dom';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import {Register} from "./components/Register";
+import App from "./components/App";
+// import {Login} from './components/Login';
+
 
 ReactDOM.render(
-< Register />,
+  <BrowserRouter >
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
