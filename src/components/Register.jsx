@@ -1,11 +1,9 @@
 import React from "react";
 
+
 import "./style.css";
 
 export class Register extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return(
             <div className="container">
