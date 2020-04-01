@@ -1,5 +1,5 @@
 import React from "react";
-
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import "./style.css";
 
@@ -31,6 +31,7 @@ export class Register extends React.Component {
                     </div>
                 </div> 
                 </form>
+                <Link className="nav-link" to={"/"}>Sign In</Link>
             </div>
         )
     }

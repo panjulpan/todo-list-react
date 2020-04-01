@@ -1,3 +1,6 @@
+.body {
+  background: gainsboro;
+}
 .container {
     color: black;
     padding: 20px;
@@ -10,16 +13,6 @@
     /* overflow-y: auto; */
     /* align-items: center; */
     /* display: flex; */
-    flex-direction: column;
-    border-radius: 25px;
-}
-
-.slip {
-  color: black;
-    padding: 5px;
-    width: 130px;
-    margin: 92px auto;
-    background: gainsboro;
     flex-direction: column;
     border-radius: 25px;
 }
