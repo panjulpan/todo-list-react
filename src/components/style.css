@@ -16,3 +16,9 @@
     flex-direction: column;
     border-radius: 25px;
 }
+.position {
+  float:right; 
+  font-size: 85%; 
+  position: relative; 
+  top:-10px;
+}

@@ -1,14 +1,12 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-import "./style.css";
-
-export class Register extends React.Component {
+export class EditProfile extends React.Component {
     render() {
         return(
             <div className="container">
-                <h1 align="center">Register</h1>
-                <form>
+                 <div className="position"><Link className="nav-link" to={"/Profile"}>Back</Link></div><h1>Edit Profile</h1>
+                 <form>
                     <div className="form-group">
                         <label>Full Name</label>
                         <input type="text" className="form-control" placeholder="Input Full Name"></input>
@@ -27,15 +25,15 @@ export class Register extends React.Component {
                     </div>
                     <div class="form-group">                                      
                     <div class="col-md-offset-3">
-                        <button type="submit" class="btn btn-info"><i class="icon-hand-right"></i>Register</button>
+                        <span className="col-md-2"></span>
+                            <button type="submit" class="btn btn-warning"><i class="icon-hand-right"></i>Edit</button>
+                            <span className="col"></span><button type="submit" class="btn btn-danger"><i class="icon-hand-right"></i>Cancel</button>
                     </div>
                 </div> 
                 </form>
-                <Link className="nav-link" to={"/"}>Sign In</Link>
             </div>
         )
     }
-    
-};
+}
 
-export default Register;
+export default EditProfile;
