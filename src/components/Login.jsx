@@ -1,12 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./style.css"
 
-import "./style.css";
 
 export class Login extends React.Component {
     render() {
         return(
-          <Router >
             <div className="container">
                 <h1 align="center">Login</h1>
                 <form>
@@ -26,7 +25,6 @@ export class Login extends React.Component {
                 </form>
                 <Link to={"/register"}>Sign Up</Link>
             </div>
-          </Router>
         )
     }
     
