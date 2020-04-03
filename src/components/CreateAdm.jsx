@@ -3,17 +3,16 @@ import {Link} from 'react-router-dom';
 import {NavBar} from './NavBar';
 import {FaAngleLeft} from 'react-icons/fa';
 
-export class EditProfile extends React.Component {
+export class CreateAdm extends React.Component {
     render() {
         return(
             <div>
-                <NavBar />
+            <NavBar />
             <div className="container">
-                <div className="position mt-3">
-                    <span className="col-md-2">  
-                    <button type="submit" className="btn btn-secondary btn-circle"><i class="icon-hand-right"></i><Link className="color" to="/Profile"><FaAngleLeft /></Link></button>
-                    </span>
-                </div>
+                 <div className="position mt-3">
+                    <button className="btn btn-secondary color btn-circle"><Link className="color" to={"/admin"}><FaAngleLeft /></Link></button>
+                 </div>
+                 <h1>Add Admin</h1>
                  <form>
                     <div className="form-group">
                         <label>Full Name</label>
@@ -34,10 +33,10 @@ export class EditProfile extends React.Component {
                     <div class="form-group">                                      
                     <div class="col-md-offset-3">
                         <span className="col-md-2"></span>
-                            <button type="submit" class="btn btn-warning"><i class="icon-hand-right"></i>Edit</button>
-                            <span className="col"></span><button type="submit" class="btn btn-danger"><i class="icon-hand-right"></i>Cancel</button>
+                            <button type="submit" class="btn btn-success"><i class="icon-hand-right"></i>Add</button>
+                            <span className="col"></span><button className="btn btn-danger"><Link className="color" to={"/admin"}>Back</Link></button>
                     </div>
-                </div> 
+                </div>
                 </form>
             </div>
             </div>
@@ -45,4 +44,4 @@ export class EditProfile extends React.Component {
     }
 }
 
-export default EditProfile;
+export default CreateAdm;

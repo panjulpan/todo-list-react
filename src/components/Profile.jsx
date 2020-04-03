@@ -1,15 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {NavBar} from './NavBar';
+import {FaEllipsisH} from 'react-icons/fa';
 import "./style.css"
 
 
 export class Profile extends React.Component {
     render() {
         return (
+          <div>
+            <NavBar />
             <div className="container">
-                <div className="position">
-                  <Link className="nav-link" to={"/editProfile"}>Edit</Link>
-                </div>
+              <div className="position mt-3">
+                <span className="col-md-2">  
+                  <button type="submit" className="btn btn-secondary btn-circle"><i class="icon-hand-right"></i><Link className="color" to="/editProfile"><FaEllipsisH /></Link></button>
+                </span>
+              </div>
                 <h1>Profile</h1>
                 <div className="row">
                   <div className="col-md-3 col-lg-3 " align="center">
@@ -28,6 +34,7 @@ export class Profile extends React.Component {
                     </table>
                   </div>
             </div>
+          </div>
           </div>
         )
     }

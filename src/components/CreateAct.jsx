@@ -1,12 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {NavBar} from './NavBar';
+import {FaAngleLeft} from 'react-icons/fa';
 
 export class Create extends React.Component {
     render() {
         return(
+            <div>
+            <NavBar />
             <div className="container">
                  <div className="position mt-3">
-                    <button className="btn btn-secondary color"><Link className="color" to={"/activity"}>Back</Link></button>
+                    <button className="btn btn-secondary color btn-circle"><Link className="color" to={"/activity"}><FaAngleLeft /></Link></button>
                  </div>
                  <h1>Add Activity</h1>
                  <form>
@@ -22,6 +26,7 @@ export class Create extends React.Component {
                     </div>
                 </div> 
                 </form>
+            </div>
             </div>
         )
     }

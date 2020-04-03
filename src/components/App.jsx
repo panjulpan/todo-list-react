@@ -7,7 +7,10 @@ import {EditProfile} from './EditProfile';
 import {Activity} from './Activity';
 import {Delete} from './DeleteAct';
 import {Create} from './CreateAct';
+import {Edit} from './EditAct';
 import {Admin} from './Admin';
+import {CreateAdm} from './CreateAdm';
+import {DeleteAdm} from './DeleteAdm';
 
 function App() {
   return (
@@ -20,7 +23,10 @@ function App() {
         <Route path='/activity' component={Activity} />
         <Route path='/deleteActivity' component={Delete} />
         <Route path='/addActivity' component={Create} />
+        <Route path='/editActivity' component={Edit} />
         <Route path='/admin' component={Admin} />
+        <Route path='/addAdmin' component={CreateAdm} />
+        <Route path='/deleteAdmin' component={DeleteAdm} />
       </div>
     </Router>
   );
