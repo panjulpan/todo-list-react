@@ -11,6 +11,9 @@ export class NavBar extends React.Component {
                 <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/admin">Admin</Nav.Link>
                 </Nav>
+                <Nav className="ml-auto">
+                   <Nav.Link className="color" href="/">Logout</Nav.Link>
+                </Nav>
             </Navbar>
         )
     }
