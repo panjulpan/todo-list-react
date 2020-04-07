@@ -28,7 +28,7 @@ export class Profile extends React.Component {
                           <td>Email : </td>
                         </tr>
                         <tr>
-                          <td>Mobile :</td>
+                          <td>Mobile : </td>
                         </tr>
                       </tbody>
                     </table>
