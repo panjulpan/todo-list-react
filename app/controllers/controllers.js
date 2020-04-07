@@ -80,6 +80,16 @@ exports.login = function(req,res){
 }
 //logout
 //activity
+exports.activity = (req, res) => {
+    conn.query("SELECT id, title FROM activity", (err, results) =>{
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(results);
+        }
+      });
+}
+
 //addActivity
 //editActivity
 //deleteActivity
