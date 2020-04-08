@@ -20,12 +20,13 @@ export class Activity extends React.Component {
 
   render() {
     let data = (
-        <tbody>
+      <tbody>
           {this.state.data.map(act => {
+            let link = "/editActivity/" + act.id
             return (
               <tr>
-                <td><input type="checkbox"/> {act.title}</td>
-                <td><button className="btn btn-warning btn-circle"><i className="icon-hand-right"></i><Link className="color" to="/editActivity"><FaEllipsisH /></Link></button></td>
+                <td key={act.id}><input type="checkbox"/> {act.title}</td>
+                <td><button className="btn btn-warning btn-circle"><i className="icon-hand-right"></i><Link className="color" to={link}><FaEllipsisH /></Link></button></td>
               </tr>
             )
           })}

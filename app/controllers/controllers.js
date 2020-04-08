@@ -91,7 +91,29 @@ exports.activity = (req, res) => {
 }
 
 //addActivity
+exports.addActivity = (req, res) => {
+	const act = req.body.title;
+    conn.query("INSERT INTO activity (title) VALUES (?)", [act], (err, results) =>{
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send({message: "Ok"});
+      }
+    });
+}
+
 //editActivity
+exports.editActivity = (req, res) => {
+    let id = req.params.id;
+        conn.query("SELECT * FROM activity WHERE id = ?", [id], (err, results) =>{
+            let singleData = results[0];
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(results);
+            }
+        })
+}
 //deleteActivity
 
 exports.profile = function(req, res){

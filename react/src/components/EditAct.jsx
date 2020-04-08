@@ -1,10 +1,36 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 import {NavBar} from './NavBar';
 import {FaAngleLeft} from 'react-icons/fa';
 
 export class Edit extends React.Component {
+    state = {
+        activity: []
+    }
+
+    componentDidMount() {
+        const id = this.props.match.params.id
+        axios.get(`/api/editActivity/${id}`)
+          .then(response => {
+             this.setState({activity: response.data})
+          })
+    }
+
     render() {
+        let activity = (
+          <div className="form-group">
+            {this.state.activity.map(act => {
+                return (
+                  <div>
+                    <label>Activity</label>
+                    <input type="text" className="form-control" value={act.title}/>
+                  </div>
+                )
+            })}
+          </div>
+        )
+
         return(
             <div>
             <NavBar />
@@ -14,10 +40,7 @@ export class Edit extends React.Component {
                  </div>
                  <h1>Edit Activity</h1>
                  <form>
-                    <div className="form-group">
-                        <label>Activity</label>
-                        <input type="text" className="form-control" value="Activity Edit"></input>
-                    </div>
+                    {activity}
                     <div class="form-group">                                      
                     <div class="col-md-offset-3">
                         <span className="col-md-2"></span>

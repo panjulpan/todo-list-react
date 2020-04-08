@@ -20,7 +20,7 @@ function App() {
         <Route path='/register' component={Register} />
         <Route path='/activity' component={Activity} />
         <Route path='/addActivity' component={Create} />
-        <Route path='/editActivity' component={Edit} />
+        <Route path='/editActivity/:id' component={Edit} />
         <Route path='/deleteActivity' component={Delete} />
         <Route path='/profile' component={Profile} />
         <Route path='/editProfile' component={EditProfile} />
