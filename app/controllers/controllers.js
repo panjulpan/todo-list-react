@@ -100,7 +100,11 @@ exports.profile = function(req, res){
     var sql ="SELECT * FROM `user` WHERE `id` = '"+Id+"'";
     console.log(sql);
     conn.query(sql, function(err, results){
-        res.json({results})
+        if (err){
+            res.json({err})
+        } else {
+            res.json({results})
+        }
     });
 }
 

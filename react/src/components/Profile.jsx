@@ -2,10 +2,38 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {NavBar} from './NavBar';
 import {FaEllipsisH} from 'react-icons/fa';
+import axios from 'axios';
 import "./style.css"
 
 
 export class Profile extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      full_name: [],
+      no_tlp: [],
+      email: [],
+      error: {}
+    }
+  }
+  componentDidMount(){
+    let Id = this.props.match.params.id;
+    axios.get('/api/profile/'+Id)
+    .then(res => {
+      if(res.data.success){
+        const data = res.data.data[0]
+        this.setState({
+          full_name: data.full_name,
+          no_tlp: data.no_tlp,
+          email: data.email
+        })
+        console.log(data)
+      }
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+  }
     render() {
         return (
           <div>
@@ -25,10 +53,10 @@ export class Profile extends React.Component {
                     <table class="table table-user-information">
                       <tbody>
                         <tr> 
-                          <td>Email : </td>
+                          <td>Email : {this.setState.email}</td>
                         </tr>
                         <tr>
-                          <td>Mobile : </td>
+                          <td>Mobile : {this.state.no_tlp}</td>
                         </tr>
                       </tbody>
                     </table>
