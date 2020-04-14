@@ -12,24 +12,27 @@ import {Admin} from './Admin';
 import {CreateAdm} from './CreateAdm';
 import {DeleteAdm} from './DeleteAdm';
 
-function App() {
-  return (
-    <Router >  
-      <div>
-        <Route exact path='/' component={Login} />
-        <Route path='/register' component={Register} />
-        <Route path='/activity' component={Activity} />
-        <Route path='/addActivity' component={Create} />
-        <Route path='/editActivity/:id' component={Edit} />
-        <Route path='/deleteActivity' component={Delete} />
-        <Route path='/profile' component={Profile} />
-        <Route path='/editProfile' component={EditProfile} />
-        <Route path='/admin' component={Admin} />
-        <Route path='/addAdmin' component={CreateAdm} />
-        <Route path='/deleteAdmin' component={DeleteAdm} />
-      </div>
-    </Router>
-  );
+export class App extends React.Component {
+  render(){
+    return (
+      <Router >  
+        <div>
+          <Route exact path='/' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route path='/activity' component={Activity} />
+          <Route path='/addActivity' component={Create} />
+          <Route path='/editActivity/:id' component={Edit} />
+          <Route path='/deleteActivity' component={Delete} />
+          <Route path='/deleteActivity/:id' component={Delete} />
+          <Route path='/profile' component={Profile} />
+          <Route path='/editProfile' component={EditProfile} />
+          <Route path='/admin' component={Admin} />
+          <Route path='/addAdmin' component={CreateAdm} />
+          <Route path='/deleteAdmin' component={DeleteAdm} />
+        </div>
+      </Router>
+    );
+  }
 };
 
 export default App;

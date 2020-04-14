@@ -51,7 +51,7 @@ export class Create extends React.Component {
                     <div className="form-group">                                      
                     <div className="col-md-offset-3">
                         <span className="col-md-2"></span>
-                            <button type="submit" className="btn btn-success" onClick={this.postActHandler}><i className="icon-hand-right"></i>Add</button>
+                            <button type="submit" className="btn btn-success"><i className="icon-hand-right"></i>Add</button>
                             <span className="col"></span><button className="btn btn-danger"><Link className="color" to={"/activity"}>Back</Link></button>
                     </div>
                 </div> 
