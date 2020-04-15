@@ -14,12 +14,13 @@ export class Activity extends React.Component {
   componentDidMount(){
     axios.get('/api/activity')
       .then(response => {
+        // console.log(response.data)
         this.setState({data: response.data})
       });
   }
 
   render() {
-    let data = (
+    let edit = (
       <tbody>
           {this.state.data.map(act => {
             let link = "/editActivity/" + act.id
@@ -48,7 +49,7 @@ export class Activity extends React.Component {
           <h1>To Do List</h1>
           <div className="row">
             <table className="table table-borderless">
-                {data}
+                {edit}
             </table>
           </div>
         </div>

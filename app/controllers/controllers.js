@@ -114,7 +114,31 @@ exports.editActivity = (req, res) => {
             }
         })
 }
+//updateActivity
+exports.updateActivity = (req, res) => {
+    var post = req.body;
+    var Id = req.params.id;
+    var title = post.title;
+  
+    var sql = "UPDATE `activity` SET title='"+title+"' WHERE `id` = '"+Id+"'";
+  
+    conn.query(sql, function(err, result){
+        res.json({
+            data: result
+        })
+    });
+}
 //deleteActivity
+exports.deleteActivity = (req, res) => {
+    let id = req.params.id;
+    conn.query("DELETE FROM activity WHERE id = ?", [id], (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send({message: "Success delete one activity"})
+      }
+    })
+}
 
 //Profile
 exports.profile = function(req, res){
