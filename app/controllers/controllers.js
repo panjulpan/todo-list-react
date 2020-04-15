@@ -152,5 +152,14 @@ exports.profile = function(req, res){
 
 //editProfile
 //admin
+exports.admin = (req, res) => {
+    conn.query("SELECT * FROM user", (err, results) =>{
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(results);
+        }
+      });
+}
 //addAdmin
 //deleteAdmin

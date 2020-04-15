@@ -21,25 +21,15 @@ export class Delete extends React.Component {
       });
   }
 
-  deleteDataHandler = () => {
-    const { id } = this.props.match.params
-    console.log(id)
-    axios.delete(`/api/deleteActivity/${id}`)
-      .then(() => {
-        console.log("deleted");
-      });
-    this.componentDidMount()
-  }
-
   render() {
     let deleteData = (
       <tbody>
         {this.state.data.map(act => {
-          let link = `/deleteActivity/${act.id}`
+          let link = `/deleteModal/${act.id}`
           return (
             <tr>
               <td key={act.id}><input type="checkbox"/> {act.title}</td>
-              <td><Link to={link}><button className="btn btn-danger btn-circle" onClick={this.deleteDataHandler}><i className="icon-hand-right"></i><FaMinus /></button></Link></td>
+              <td><Link to={link}><button className="btn btn-danger btn-circle" ><i className="icon-hand-right"></i><FaMinus /></button></Link></td>
             </tr>
           )
         })}
