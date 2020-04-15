@@ -9,4 +9,5 @@ app.get('/api/editActivity/:id', controller.editActivity);
 app.post('/api/updateActivity/:id', controller.updateActivity);
 app.post('/api/addActivity', controller.addActivity);
 app.delete('/api/deleteActivity/:id', controller.deleteActivity);
+app.get('/api/admin', controller.admin);
 }

@@ -6,6 +6,7 @@ import {Activity} from './Activity';
 import {Create} from './CreateAct';
 import {Edit} from './EditAct';
 import {Delete} from './DeleteAct';
+import {DeleteModal} from './DeleteActModal';
 import {Profile} from './Profile';
 import {EditProfile} from './EditProfile';
 import {Admin} from './Admin';
@@ -23,7 +24,7 @@ export class App extends React.Component {
           <Route path='/addActivity' component={Create} />
           <Route path='/editActivity/:id' component={Edit} />
           <Route path='/deleteActivity' component={Delete} />
-          <Route path='/deleteActivity/:id' component={Delete} />
+          <Route path='/deleteModal/:id' component={DeleteModal} />
           <Route path='/profile' component={Profile} />
           <Route path='/editProfile' component={EditProfile} />
           <Route path='/admin' component={Admin} />
