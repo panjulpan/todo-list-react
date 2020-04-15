@@ -16,8 +16,8 @@ export class Profile extends React.Component {
       axios.get('/api/profile')
       .then(response => {
         this.setState({data: response.data})
-        console.log(response)
-        // console.log(this.state.data)
+        // console.log(response)
+        //console.log(this.state.data)
     })
   }
     render() {
@@ -26,7 +26,9 @@ export class Profile extends React.Component {
             {this.state.data.map(act => {
               return (
                 <tr>
+                  <td key={act.id}>Name : {act.full_name}</td>
                   <td key={act.id}>Email : {act.email}</td>
+                  <td key={act.id}>Telepon : {act.no_tlp}</td>
                 </tr>
               )
             })}

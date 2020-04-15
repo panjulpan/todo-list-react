@@ -4,6 +4,7 @@ import {NavBar} from './NavBar';
 import {FaAngleLeft} from 'react-icons/fa';
 
 export class EditProfile extends React.Component {
+    //BUG MAYOR
     render() {
         return(
             <div>

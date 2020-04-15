@@ -50,6 +50,7 @@ exports.register = [
   }
 ]
 
+var x;
 //login
 exports.login = function(req,res){
     var post = req.body;
@@ -59,18 +60,19 @@ exports.login = function(req,res){
         const hash = results[0].password;
         bcrypt.compare(password, hash, (err, response) => {
             var role_user = results[0].role_user;
-            var userId = results[0].id.toString()
+            var userId = results[0].id;
             if(response === true){
                 req.session.loggedIn = true;
                 req.session.userId = results[0].id;
                 req.session.email = email;
+               x = req.session.userId;
                 if (role_user === 'master'){
                     res.json({
-                        message: "Berhasil Login sebagai MASTER", userId
+                        message: "Berhasil Login sebagai MASTER, "+req.session.userId+"!"
                      })
                 } else if(role_user == 'user'){
                     res.json({
-                        message: "Berhasil Login sebagai USER", userId
+                        message: "Berhasil Login sebagai USER,"+x+"!"
                     })
                 } else {
                     res.json({
@@ -91,11 +93,21 @@ exports.login = function(req,res){
         });
     });
 }
+
 //logout
+exports.logout = (req, res) => {
+    if(req.session.loggedIn) {
+        req.session.destroy();
+        res.status(200).send({message: "Logout Success"})
+    } else {
+        res.status(400).send({message: "Youre not Login"})
+    }
+};
 //activity
 exports.activity = (req, res) => {
-    userId = req.session.userId;
-        conn.query("SELECT id, title, user_id FROM activity WHERE user_id = '"+userId+"'", (err, results) =>{
+    userId = x;
+    console.log(userId);
+        conn.query("SELECT * FROM activity WHERE user_id = '"+userId+"'", (err, results) =>{
             if (err) {
               console.log(err);
             } else {
@@ -155,19 +167,21 @@ exports.deleteActivity = (req, res) => {
 }
 
 //Profile
-exports.profile = function(req, res){
-        var sql ="SELECT * FROM `user` WHERE `id` = '"+userId+"'";
-        console.log(sql);
-        conn.query(sql, function(err, results){
-            if (err){
-                res.json({err})
+var id;
+exports.profile = (req, res) => {
+    console.log(x);
+        conn.query("SELECT * FROM user WHERE  id = '"+x+"'", (err, results) =>{
+            if (err) {
+              console.log(err);
             } else {
-                res.json({results})
+              res.send(results);
             }
         });
 }
 
 //editProfile
+
+
 //admin
 exports.admin = (req, res) => {
     conn.query("SELECT * FROM user", (err, results) =>{
@@ -179,4 +193,39 @@ exports.admin = (req, res) => {
       });
 }
 //addAdmin
+exports.addAdmin = (req, res) => {
+    var post  = req.body;
+    var full_name= post.full_name;
+    var no_tlp= post.no_tlp;
+    var email= post.email;
+    var pass= post.password;
+      
+        bcrypt.hash(pass, saltRounds, function(err, hash){
+        var sql = "INSERT INTO `user`(`full_name`,`no_tlp`,`email`, `password`, `role_user`) VALUES ('" + full_name + "','" + no_tlp + "','" + email + "','" + hash + "', 'master')";
+        var sql1 = "SELECT * FROM `user` WHERE `email` ='"+email+"'";
+        conn.query(sql1, function(err, results){ 
+          if(results.length) {
+                res.json({
+                    message: "Email telah terdaftar!"
+                });
+          } else {
+            conn.query(sql, function(err, result){
+                res.json({
+                    message: "Berhasil"
+                })
+            })
+          }
+      });
+    });
+}
 //deleteAdmin
+exports.deleteAdm = (req, res) => {
+    let id = req.params.id;
+    conn.query("DELETE FROM user WHERE id = ?", [id], (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).send({message: "Deleted"})
+      }
+    })
+}
