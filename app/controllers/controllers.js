@@ -116,6 +116,7 @@ exports.editActivity = (req, res) => {
 }
 //deleteActivity
 
+//Profile
 exports.profile = function(req, res){
     var userId = req.session.id;
     var Id = req.params.id;

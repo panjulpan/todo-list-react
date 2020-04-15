@@ -10,28 +10,19 @@ export class Profile extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      full_name: [],
-      no_tlp: [],
-      email: [],
-      error: {}
+      full_name: '',
+      no_tlp: '',
+      email: ''
     }
   }
   componentDidMount(){
-    let Id = this.props.match.params.id;
-    axios.get('/api/profile/'+Id)
-    .then(res => {
-      if(res.data.success){
-        const data = res.data.data[0]
-        this.setState({
-          full_name: data.full_name,
-          no_tlp: data.no_tlp,
-          email: data.email
-        })
-        console.log(data)
-      }
-    })
-    .catch(error=>{
-      console.log(error)
+    axios.get('/api/profile')
+    .then(response => {
+      this.setState({
+        full_name: this.state.full_name,
+        no_tlp: this.state.no_tlp,
+        email: this.state.email
+      })
     })
   }
     render() {
@@ -51,14 +42,12 @@ export class Profile extends React.Component {
                   </div>
                   <div class=" col-md-9 col-lg-9 "> 
                     <table class="table table-user-information">
-                      <tbody>
-                        <tr> 
-                          <td>Email : {this.setState.email}</td>
-                        </tr>
-                        <tr>
-                          <td>Mobile : {this.state.no_tlp}</td>
-                        </tr>
-                      </tbody>
+                    <tbody>
+                          <tr>
+                            <td>Email : {this.state.email}</td>
+                            <td>Mobile : {this.state.no_tlp}</td>
+                          </tr>
+                    </tbody>
                     </table>
                   </div>
             </div>
