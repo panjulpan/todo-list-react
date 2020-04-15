@@ -58,9 +58,12 @@ exports.login = function(req,res){
     conn.query('SELECT * FROM user WHERE email = ?',[email], function (error, results, fields) {
         const hash = results[0].password;
         bcrypt.compare(password, hash, (err, response) => {
+            var role_user = results[0].role_user;
+            var userId = results[0].id.toString()
             if(response === true){
-                var role_user = results[0].role_user;
-                var userId = results[0].id.toString()
+                req.session.loggedIn = true;
+                req.session.userId = results[0].id;
+                req.session.email = email;
                 if (role_user === 'master'){
                     res.json({
                         message: "Berhasil Login sebagai MASTER", userId
@@ -74,6 +77,16 @@ exports.login = function(req,res){
                         message: "Email dan Password Salah", userId
                     })
                 }
+            } else {
+                if(req.session.loggedIn){
+                    res.json({
+                        message: "Berhasil Masuk"
+                    })
+                } else {
+                    res.json({
+                        message: "Kembali ke login"
+                    })
+                }
             }
         });
     });
@@ -81,13 +94,14 @@ exports.login = function(req,res){
 //logout
 //activity
 exports.activity = (req, res) => {
-    conn.query("SELECT id, title FROM activity", (err, results) =>{
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(results);
-        }
-      });
+    userId = req.session.userId;
+        conn.query("SELECT id, title, user_id FROM activity WHERE user_id = '"+userId+"'", (err, results) =>{
+            if (err) {
+              console.log(err);
+            } else {
+              res.send(results);
+            }
+        });
 }
 
 //addActivity
@@ -106,7 +120,7 @@ exports.addActivity = (req, res) => {
 exports.editActivity = (req, res) => {
     let id = req.params.id;
         conn.query("SELECT * FROM activity WHERE id = ?", [id], (err, results) =>{
-            let singleData = results[0];
+            // let singleData = results[0];
             if (err) {
                 console.log(err);
             } else {
@@ -116,17 +130,17 @@ exports.editActivity = (req, res) => {
 }
 //updateActivity
 exports.updateActivity = (req, res) => {
-    var post = req.body;
-    var Id = req.params.id;
-    var title = post.title;
-  
-    var sql = "UPDATE `activity` SET title='"+title+"' WHERE `id` = '"+Id+"'";
-  
-    conn.query(sql, function(err, result){
-        res.json({
-            data: result
-        })
-    });
+        var post = req.body;
+        var Id = req.params.id;
+        var title = post.title;
+      
+        var sql = "UPDATE `activity` SET title='"+title+"' WHERE `id` = '"+Id+"'";
+      
+        conn.query(sql, function(err, result){
+            res.json({
+                data: result
+            })
+        });
 }
 //deleteActivity
 exports.deleteActivity = (req, res) => {
@@ -142,17 +156,15 @@ exports.deleteActivity = (req, res) => {
 
 //Profile
 exports.profile = function(req, res){
-    var userId = req.session.id;
-    var Id = req.params.id;
-    var sql ="SELECT * FROM `user` WHERE `id` = '"+Id+"'";
-    console.log(sql);
-    conn.query(sql, function(err, results){
-        if (err){
-            res.json({err})
-        } else {
-            res.json({results})
-        }
-    });
+        var sql ="SELECT * FROM `user` WHERE `id` = '"+userId+"'";
+        console.log(sql);
+        conn.query(sql, function(err, results){
+            if (err){
+                res.json({err})
+            } else {
+                res.json({results})
+            }
+        });
 }
 
 //editProfile

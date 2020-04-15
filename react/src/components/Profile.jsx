@@ -7,25 +7,32 @@ import "./style.css"
 
 
 export class Profile extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      full_name: '',
-      no_tlp: '',
-      email: ''
+
+    state = {
+        data: []
     }
-  }
-  componentDidMount(){
-    axios.get('/api/profile')
-    .then(response => {
-      this.setState({
-        full_name: this.state.full_name,
-        no_tlp: this.state.no_tlp,
-        email: this.state.email
-      })
+
+    componentDidMount(){
+      axios.get('/api/profile')
+      .then(response => {
+        this.setState({data: response.data})
+        console.log(response)
+        // console.log(this.state.data)
     })
   }
     render() {
+      let prof = (
+        <tbody>
+            {this.state.data.map(act => {
+              return (
+                <tr>
+                  <td key={act.id}>Email : {act.email}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+      )
+
         return (
           <div>
             <NavBar />
@@ -42,12 +49,7 @@ export class Profile extends React.Component {
                   </div>
                   <div class=" col-md-9 col-lg-9 "> 
                     <table class="table table-user-information">
-                    <tbody>
-                          <tr>
-                            <td>Email : {this.state.email}</td>
-                            <td>Mobile : {this.state.no_tlp}</td>
-                          </tr>
-                    </tbody>
+                      {prof}
                     </table>
                   </div>
             </div>
