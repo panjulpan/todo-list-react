@@ -29,7 +29,10 @@ app.delete('/api/deleteActivity/:id', controller.deleteActivity);
 app.get('/api/profile', controller.profile);
 
 //Edit Profil
-// app.get('/api/editProfile', controller.editProfile);
+app.get('/api/editProfile/:id', controller.getEdit);
+
+//Update Profile
+app.post('/api/updateProfile/:id', controller.updateProfile);
 
 //Admin
 app.get('/api/admin', controller.admin);

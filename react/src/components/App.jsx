@@ -26,7 +26,7 @@ export class App extends React.Component {
           <Route path='/deleteActivity' component={Delete} />
           <Route path='/deleteModal/:id' component={DeleteModal} />
           <Route path='/profile' component={Profile} />
-          <Route path='/editProfile' component={EditProfile} />
+          <Route path='/editProfile/:id' component={EditProfile} />
           <Route path='/admin' component={Admin} />
           <Route path='/addAdmin' component={CreateAdm} />
           <Route path='/deleteAdmin' component={DeleteAdm} />

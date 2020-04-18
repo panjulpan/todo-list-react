@@ -8,47 +8,53 @@ import ModalTitle from "react-bootstrap/ModalTitle";
 import axios from "axios";
 
 export class DeleteAdmModal extends React.Component {
-    state = {
-        data: [],
-        redirect: false
+  state = {
+    data: [],
+    redirect: false
+  }
+
+  // componentDidMount(){
+  //       axios.get(``)
+  //         .then(response => {
+  //            this.setState({data: response.data[0]})
+  //         })
+  // }
+
+  deleteDataHandler = () => {
+    const { id } = this.props.match.params
+    axios.delete(`/api/deleteAdm/${id}`)
+      .then(() => {
+        this.setState({
+          redirect: true
+        })
+      });
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return (
+        <Redirect to='/admin' />
+      )
     }
+  }
 
-    //BUG MINOR
+  render(){
+    return (
+      <div>
+        {this.renderRedirect()}
+        <Modal show centered>
+          <ModalHeader>
+            <ModalTitle>Are You Sure To Delete This Activity ?</ModalTitle>
+          </ModalHeader>
+          <ModalBody><p>{this.state.data.full_name}</p></ModalBody>
+          <ModalFooter>
+            <button type="submit" className="btn btn-danger" onClick={this.deleteDataHandler}><i className="icon-hand-right"></i>Delete</button>
+            <button className="btn btn-info"><Link className="color" to={"/deleteAdm"}>Back</Link></button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+};
 
-    deleteHandler = () => {
-        const { id } = this.props.match.params
-        axios.delete(`/api/deleteAdm/${id}`)
-          .then(() => {
-            this.setState({
-              redirect: true
-            })
-          });
-        // this.componentDidMount()
-      }
-    
-      renderRedirect = () => {
-        if (this.state.redirect) {
-          return (
-            <Redirect to='/admin' />
-          )
-        }
-      }
-
-    render(){
-        return (
-          <div>
-            {this.renderRedirect()}
-            <Modal show centered>
-              <ModalHeader>
-                <ModalTitle>Are You Sure To Delete This Activity ?</ModalTitle>
-              </ModalHeader>
-              <ModalBody><p>{this.state.data.full_name}</p></ModalBody>
-              <ModalFooter>
-                <button type="submit" className="btn btn-danger" onClick={this.deleteHandler}><i className="icon-hand-right"></i>Delete</button>
-                <button className="btn btn-info"><Link className="color" to={"/deleteAdm"}>Back</Link></button>
-              </ModalFooter>
-            </Modal>
-          </div>
-        );
-    }
-}
+export default DeleteAdmModal

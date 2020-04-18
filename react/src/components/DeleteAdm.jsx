@@ -14,10 +14,12 @@ export class DeleteAdm extends React.Component {
   }
 
   componentDidMount(){
-    axios.get(`/api/admin/`)
+    axios.get(``)
     .then(response => {
       this.setState({data: response.data})
-    });
+      console.log(response.data)
+    })
+    
   }
 
   render() {
@@ -27,7 +29,7 @@ export class DeleteAdm extends React.Component {
           let link = `/DeleteAdmModal/${del.id}`
           return (
             <tr>
-              <td key={del.id}><input type="checkbox"/>{del.full_name}</td>
+              <td key={del.id}><input type="checkbox"/> {del.full_name}</td>
               <td><Link to={link}><button className="btn btn-danger btn-circle" ><i className="icon-hand-right"></i><FaMinus /></button></Link></td>
             </tr>
           )

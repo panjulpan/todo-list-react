@@ -16,8 +16,8 @@ app.use(session({
 
 //Register
 exports.register = [
-    check('full_name').notEmpty(),
-    check('no_tlp').isNumeric().notEmpty(),
+    check('full_name').isLength({min: 3}).notEmpty(),
+    check('no_tlp').isLength({max: 12}).isNumeric().notEmpty(),
     check('email').isEmail().notEmpty(),
     check('password').isLength({max: 8}).notEmpty(),
     function(req,res) {
@@ -58,21 +58,22 @@ exports.login = function(req,res){
     var password = post.password;
     conn.query('SELECT * FROM user WHERE email = ?',[email], function (error, results, fields) {
         const hash = results[0].password;
-        bcrypt.compare(password, hash, (err, response) => {
-            var role_user = results[0].role_user;
+        var role_user = results[0].role_user;
             var userId = results[0].id;
+            console.log(userId);
+        bcrypt.compare(password, hash, (_err, response) => {
             if(response === true){
                 req.session.loggedIn = true;
-                req.session.userId = results[0].id;
+                req.session.userId = userId;
                 req.session.email = email;
-               x = req.session.userId;
+                x=req.session.userId;
                 if (role_user === 'master'){
                     res.json({
                         message: "Berhasil Login sebagai MASTER, "+req.session.userId+"!"
                      })
                 } else if(role_user == 'user'){
                     res.json({
-                        message: "Berhasil Login sebagai USER,"+x+"!"
+                        message: "Berhasil Login sebagai USER,"+req.session.userId+"!"
                     })
                 } else {
                     res.json({
@@ -96,7 +97,7 @@ exports.login = function(req,res){
 
 //logout
 exports.logout = (req, res) => {
-    if(req.session.loggedIn) {
+    if(req.session.loggedIn === false) {
         req.session.destroy();
         res.status(200).send({message: "Logout Success"})
     } else {
@@ -105,9 +106,8 @@ exports.logout = (req, res) => {
 };
 //activity
 exports.activity = (req, res) => {
-    userId = x;
-    console.log(userId);
-        conn.query("SELECT * FROM activity WHERE user_id = '"+userId+"'", (err, results) =>{
+    console.log(x);
+        conn.query("SELECT * FROM activity WHERE user_id = '"+x+"'", (err, results) =>{
             if (err) {
               console.log(err);
             } else {
@@ -118,8 +118,9 @@ exports.activity = (req, res) => {
 
 //addActivity
 exports.addActivity = (req, res) => {
+    x = x;
 	const act = req.body.title;
-    conn.query("INSERT INTO activity (title) VALUES (?)", [act], (err, results) =>{
+    conn.query("INSERT INTO activity (title,user_id) VALUES (?, ?)", [act, x], (err, results) =>{
       if (err) {
         console.log(err);
       } else {
@@ -131,6 +132,7 @@ exports.addActivity = (req, res) => {
 //editActivity
 exports.editActivity = (req, res) => {
     let id = req.params.id;
+    console.log("bagus"+id)
         conn.query("SELECT * FROM activity WHERE id = ?", [id], (err, results) =>{
             // let singleData = results[0];
             if (err) {
@@ -154,6 +156,7 @@ exports.updateActivity = (req, res) => {
             })
         });
 }
+
 //deleteActivity
 exports.deleteActivity = (req, res) => {
     let id = req.params.id;
@@ -179,7 +182,39 @@ exports.profile = (req, res) => {
         });
 }
 
-//editProfile
+//Edit Profile
+exports.getEdit = (req, res) => {
+    let x = req.params.id;
+    console.log("profil "+ x);
+        conn.query("SELECT * FROM user WHERE id = ?", [x], (err, results) =>{
+            // let singleData = results[0];
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(results);
+            }
+        })
+}
+
+//Update Profile
+exports.updateProfile = (req, res) => {
+    var post = req.body;
+    var id = req.params.id;
+    var full_name = post.full_name;
+    var no_tlp = post.no_tlp;
+    var email = post.email
+    console.log(id);
+    console.log(full_name);
+    console.log(no_tlp);
+    console.log(email);
+    var sql = "UPDATE `user` SET full_name='"+full_name+"', no_tlp='"+no_tlp+"', email='"+email+"' WHERE `id` = '"+id+"'";
+  
+    conn.query(sql, function(err, result){
+        res.json({
+            data: result
+        })
+    });
+}
 
 
 //admin
